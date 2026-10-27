@@ -1,0 +1,10 @@
+.env
+.env.*
+.azure/
+*.log
+*.key
+*.pem
+node_modules/
+__pycache__/
+.DS_Store
+.vscode/
