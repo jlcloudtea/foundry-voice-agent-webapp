@@ -375,3 +375,39 @@ az group delete --name "$RG" --yes
 ## 声明
 
 本项目用于学习、教学和可重复部署演示。Microsoft Foundry、Voice Live APIs 和 Azure 平台能力未来可能变化。生产部署之前请查看最新 Microsoft 文档、安全要求和价格。
+
+## 暂停与恢复：降低闲置 Hosting 成本
+
+仅仅 Stop Web App 并不能移除付费 App Service Plan。长时间不用时，可以运行暂停脚本删除 Web App 和 App Service Plan，同时保留 ACR 中的生产 Docker Image 以及独立 Resource Group 中的 Microsoft Foundry Agent。
+
+### 暂停
+
+```bash
+export RG="rg-VoiceAgent"
+export PLAN="plan-VoiceAgent"
+export APP_NAME="<YOUR-UNIQUE-WEBAPP-NAME>"
+./scripts/pause.sh
+```
+
+暂停脚本保留 ACR、生产 Docker Image、Foundry Resource/Project/Agent 和源代码仓库；删除 Web App 和付费 App Service Plan。
+
+### 恢复
+
+```bash
+export RG="rg-VoiceAgent"
+export LOCATION="eastus"
+export ACR_NAME="<YOUR-ACR-NAME>"
+export PLAN="plan-VoiceAgent"
+export APP_NAME="<YOUR-UNIQUE-WEBAPP-NAME>"
+export AI_RESOURCE="<AI-RESOURCE-NAME>"
+export FOUNDRY_RG="<FOUNDRY-RESOURCE-GROUP>"
+export FOUNDRY_PROJECT="<FOUNDRY-PROJECT-NAME>"
+export AGENT_NAME="<VOICE-AGENT-NAME>"
+export IMAGE_REPO="voicelive-web"
+export IMAGE_TAG="v1"
+./scripts/resume.sh
+```
+
+重新创建的 Web App 会获得新的 Managed Identity principal。恢复脚本会给新 identity 重新分配 `AcrPull`、`Cognitive Services User` 和 `Foundry User`。
+
+参见 [暂停与恢复运维说明](docs/pause-resume.md)。

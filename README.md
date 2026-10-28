@@ -370,3 +370,39 @@ See [docs/troubleshooting.md](docs/troubleshooting.md).
 ## Disclaimer
 
 This repository is intended for learning, demonstration and reproducible deployment guidance. Microsoft Foundry, Voice Live APIs and Azure platform behaviour can change. Review current Microsoft documentation, security guidance and pricing before production use.
+
+## Pause and resume to reduce idle hosting costs
+
+Stopping the Web App alone does not remove the paid App Service Plan. For long idle periods, use the included pause workflow to delete the Web App and App Service Plan while preserving the Azure Container Registry image and the separate Microsoft Foundry agent.
+
+### Pause
+
+```bash
+export RG="rg-VoiceAgent"
+export PLAN="plan-VoiceAgent"
+export APP_NAME="<YOUR-UNIQUE-WEBAPP-NAME>"
+./scripts/pause.sh
+```
+
+The pause script preserves ACR, the production Docker image, the Foundry resource/project/agent, and the source repository. It deletes the Web App and paid App Service Plan.
+
+### Resume
+
+```bash
+export RG="rg-VoiceAgent"
+export LOCATION="eastus"
+export ACR_NAME="<YOUR-ACR-NAME>"
+export PLAN="plan-VoiceAgent"
+export APP_NAME="<YOUR-UNIQUE-WEBAPP-NAME>"
+export AI_RESOURCE="<AI-RESOURCE-NAME>"
+export FOUNDRY_RG="<FOUNDRY-RESOURCE-GROUP>"
+export FOUNDRY_PROJECT="<FOUNDRY-PROJECT-NAME>"
+export AGENT_NAME="<VOICE-AGENT-NAME>"
+export IMAGE_REPO="voicelive-web"
+export IMAGE_TAG="v1"
+./scripts/resume.sh
+```
+
+A recreated Web App receives a new managed-identity principal. The resume script reapplies `AcrPull`, `Cognitive Services User`, and `Foundry User` to that new identity.
+
+See [Pause and resume operations](docs/pause-resume.md).
