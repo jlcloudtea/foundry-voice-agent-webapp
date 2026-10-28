@@ -406,3 +406,19 @@ export IMAGE_TAG="v1"
 A recreated Web App receives a new managed-identity principal. The resume script reapplies `AcrPull`, `Cognitive Services User`, and `Foundry User` to that new identity.
 
 See [Pause and resume operations](docs/pause-resume.md).
+## Optional: Enhanced Student UI
+
+A tested student-focused troubleshooting interface is available as an optional enhancement.
+
+Features include:
+
+- Technical settings hidden from students
+- New Chat
+- 10-minute countdown and automatic session ending
+- Transcript download
+- Full-conversation audio recording with both student and assistant audio
+- Browser-local recording with no Azure recording storage in the sample
+
+Tested source release: `troubleshooting-demo-v1.0.0` in `jlcloudtea/voicelive-samples`.
+
+See [Enhanced Student UI](docs/enhanced-student-ui.md).

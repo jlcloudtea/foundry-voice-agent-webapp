@@ -411,3 +411,19 @@ export IMAGE_TAG="v1"
 重新创建的 Web App 会获得新的 Managed Identity principal。恢复脚本会给新 identity 重新分配 `AcrPull`、`Cognitive Services User` 和 `Foundry User`。
 
 参见 [暂停与恢复运维说明](docs/pause-resume.md)。
+## 可选功能：Enhanced Student UI
+
+项目提供经过测试的学生版 Troubleshooting 界面作为可选增强功能。
+
+包括：
+
+- 对学生隐藏技术设置
+- New Chat
+- 10 分钟倒计时及自动结束
+- Transcript 下载
+- 同时包含学生和 AI Assistant 声音的完整会话录音
+- 录音保存在浏览器本地，本示例不使用 Azure Storage 保存录音
+
+已测试源码版本：`jlcloudtea/voicelive-samples` 中的 `troubleshooting-demo-v1.0.0`。
+
+详见 [Enhanced Student UI](docs/enhanced-student-ui.md)。
